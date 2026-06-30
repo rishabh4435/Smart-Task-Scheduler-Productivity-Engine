@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: scheduler
+  mongodb:
+    uri: mongodb+srv://rktrish420_db_user:Lhubuev7ETPxRfBt@cluster0.ftyhtey.mongodb.net/shceduler?retryWrites=true&w=majority
+  data:
+    mongodb:
+      auto-index-creation: true
+
+jwt:
+  secret: SuperSecretKeyForJwtAuthenticationAndSecurity2026
+  expiration: 604800000
+
+
+logging:
+  level:
+    org:
+      springframework:
+        data:
+          mongodb:
+            core:
+              MongoTemplate=DEBUG:
