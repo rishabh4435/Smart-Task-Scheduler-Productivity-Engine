@@ -2,7 +2,7 @@ spring:
   application:
     name: scheduler
   mongodb:
-    uri: mongodb+srv://rktrish420_db_user:Lhubuev7ETPxRfBt@cluster0.ftyhtey.mongodb.net/shceduler?retryWrites=true&w=majority
+    uri: mongodb+srv://rktrish420_db_user:password.env@cluster0.ftyhtey.mongodb.net/shceduler?retryWrites=true&w=majority
   data:
     mongodb:
       auto-index-creation: true
