@@ -1,0 +1,52 @@
+version: "3.9"
+
+services:
+
+  mongodb:
+    image: mongo:8
+    container_name: scheduler-mongodb
+    restart: unless-stopped
+
+    ports:
+      - "27017:27017"
+
+    environment:
+      MONGO_INITDB_DATABASE: scheduler
+
+    volumes:
+      - mongo-data:/data/db
+
+  redis:
+    image: redis:8
+    container_name: scheduler-redis
+    restart: unless-stopped
+
+    ports:
+      - "6379:6379"
+
+    volumes:
+      - redis-data:/data
+
+  scheduler:
+    build: .
+
+    container_name: scheduler-api
+
+    depends_on:
+      - mongodb
+      - redis
+
+    ports:
+      - "8081:8080"
+
+    environment:
+      MONGODB_URI: mongodb://mongodb:27017/scheduler
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      JWT_SECRET: yourVeryLongSecretKeyHere
+
+volumes:
+
+  mongo-data:
+
+  redis-data:

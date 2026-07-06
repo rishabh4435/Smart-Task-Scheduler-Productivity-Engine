@@ -11,7 +11,7 @@ import com.thakur.scheduler.task.repository.TaskRepository;
 import com.thakur.scheduler.task.repository.UserRepository;
 import com.thakur.scheduler.task.security.JwtService;
 import org.junit.jupiter.api.BeforeEach;
-import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.junit.jupiter.api.Test;

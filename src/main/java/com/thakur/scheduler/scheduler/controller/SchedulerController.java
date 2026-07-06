@@ -5,6 +5,7 @@ import com.thakur.scheduler.scheduler.dto.RecommendationResponseDto;
 import com.thakur.scheduler.scheduler.service.SchedulerService;
 import com.thakur.scheduler.task.dto.response.TaskResponseDto;
 import com.thakur.scheduler.task.security.CustomUserDetails;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/scheduler")
 @Validated
+@Tag(name = "3. AI Scheduler & Recommendations", description = "Endpoints for generating daily plans and task execution orders")
 public class SchedulerController {
 
     private final SchedulerService schedulerService;

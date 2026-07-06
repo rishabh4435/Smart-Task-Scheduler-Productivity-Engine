@@ -7,6 +7,7 @@ import com.thakur.scheduler.task.dto.response.AuthResponseDto;
 import com.thakur.scheduler.task.dto.response.UserResponseDto;
 import com.thakur.scheduler.task.security.CustomUserDetails;
 import com.thakur.scheduler.task.service.AuthService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/auth")
+@Tag(name = "1. Authentication", description = "Endpoints for user registration, login, and secure session management")
 public class AuthController {
 
     private final AuthService authService;

@@ -4,17 +4,17 @@ spring:
 
   data:
     mongodb:
-      uri: ${MONGODB_URI}
+      uri: ${MONGODB_URI:mongodb://localhost:27017/scheduler}
       auto-index-creation: true
-    redis:
-      host: localhost
-      port: 6379
 
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
 
 jwt:
   secret: ${JWT_SECRET}
-  expiration: 900000            # Access Token: 15 minutes (in milliseconds)
-  refreshExpiration: 604800000  # 7 days
+  expiration: 900000
+  refreshExpiration: 604800000
 
 logging:
   file:

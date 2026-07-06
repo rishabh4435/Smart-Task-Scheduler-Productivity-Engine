@@ -8,6 +8,8 @@ import com.thakur.scheduler.task.model.enums.Priority;
 import com.thakur.scheduler.task.model.enums.Status;
 import com.thakur.scheduler.task.security.CustomUserDetails;
 import com.thakur.scheduler.task.service.TaskService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -22,10 +24,15 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/tasks")
+@Tag(name = "2. Task Management", description = "Core APIs for creating, updating, linking, and fetching tasks")
 public class TaskController {
 
     private final TaskService taskService;
 
+    @Operation(
+            summary = "Create a new scheduled task",
+            description = "Creates a new task with a specific priority and deadline. Dependency IDs must exist in the database."
+    )
     @PostMapping("/create-task")
     public ResponseEntity<TaskResponseDto> createTask
             (@Valid @RequestBody TaskCreateRequestDto taskCreateRequestDto,

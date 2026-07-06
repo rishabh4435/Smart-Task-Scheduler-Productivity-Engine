@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
-import org.springframework.data.redis.cache.RedisCacheWriter;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.serializer.*;
 
@@ -21,28 +20,18 @@ public class RedisConfiguration {
     @Bean
     public RedisCacheManager redisCacheManager(RedisConnectionFactory connectionFactory) {
 
-
         RedisCacheConfiguration config =
                 RedisCacheConfiguration.defaultCacheConfig()
                         .entryTtl(Duration.ofMinutes(10))
-                        .computePrefixWith(cacheName -> "scheduler:" + cacheName + ":")
+                        .computePrefixWith(cache -> "scheduler:" + cache + ":")
                         .serializeKeysWith(
                                 RedisSerializationContext.SerializationPair.fromSerializer(
-                                        new StringRedisSerializer()
-                                )
-                        )
+                                        new StringRedisSerializer()))
                         .serializeValuesWith(
                                 RedisSerializationContext.SerializationPair.fromSerializer(
-                                        new JdkSerializationRedisSerializer()
-                                )
-                        );
+                                        new JdkSerializationRedisSerializer()));
 
-        RedisCacheWriter cacheWriter = RedisCacheWriter.create(
-                connectionFactory,
-                RedisCacheWriter.RedisCacheWriterConfigurer::immediateWrites
-        );
-
-        return RedisCacheManager.builder(cacheWriter)
+        return RedisCacheManager.builder(connectionFactory)
                 .cacheDefaults(config)
                 .build();
     }
