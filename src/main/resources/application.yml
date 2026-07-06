@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: scheduler
+
+  data:
+    mongodb:
+      uri: ${MONGODB_URI}
+      auto-index-creation: true
+    redis:
+      host: localhost
+      port: 6379
+
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: 900000            # Access Token: 15 minutes (in milliseconds)
+  refreshExpiration: 604800000  # 7 days
+
+logging:
+  file:
+    path: logs
+    name: logs/scheduler.log
+
+  level:
+    root: INFO
+    com.thakur.scheduler: DEBUG

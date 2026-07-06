@@ -1,0 +1,17 @@
+package com.thakur.scheduler.audit;
+
+public enum AuditAction {
+    SIGNUP,
+    LOGIN,
+    LOGIN_FAILED,
+    LOGOUT,
+    REFRESH_TOKEN,
+    CREATE_TASK,
+    UPDATE_TASK,
+    DELETE_TASK,
+    COMPLETE_TASK,
+    ADD_DEPENDENCY,
+    REMOVE_DEPENDENCY,
+    GENERATE_DAILY_PLAN,
+    GENERATE_RECOMMENDATION
+}

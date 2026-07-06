@@ -1,0 +1,12 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/testdb
+
+  cache:
+    type: none
+
+jwt:
+  secret: TestSecretKeyForJwtAuthentication123456789
+  expiration: 900000              # 15 minutes
+  refreshExpiration: 604800000
