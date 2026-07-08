@@ -64,6 +64,12 @@ public class JwtAuthenticateFilter extends OncePerRequestFilter {
 
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+
+                if (!userDetails.isEnabled()) {
+                    response.sendError(HttpServletResponse.SC_FORBIDDEN, "User account is disabled");
+                    return; // Stop the request immediately
+                }
+
                 if (jwtService.isTokenValid(jwt, userDetails)) {
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                             userDetails, null, userDetails.getAuthorities()

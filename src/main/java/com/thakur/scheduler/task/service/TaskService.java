@@ -88,21 +88,18 @@ public class TaskService {
             ));
 
             log.info("Task {} created successfully", savedTask.getId());
-
             return TaskMapper.toResponseDto(savedTask);
 
-        } catch (Exception ex) {
+        } catch (org.springframework.dao.DuplicateKeyException ex) {
+            log.warn("Race condition prevented: Duplicate task title '{}' intercepted for user {}", request.getTitle(), userId);
+            throw new DuplicateResourceException("Task with this title already exists.");
 
+        } catch (Exception ex) {
             log.error("Failed to create task for user {}", userId, ex);
 
 
             eventPublisher.publishEvent(new AuditLogEvent(
-                    userId,
-                    AuditAction.CREATE_TASK,
-                    EntityType.TASK,
-                    null,
-                    false,
-                    ex.getMessage()
+                    userId, AuditAction.CREATE_TASK, EntityType.TASK, null, false, ex.getMessage()
             ));
 
             throw ex;

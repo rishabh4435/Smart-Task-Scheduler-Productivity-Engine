@@ -137,6 +137,10 @@ public class AuthService {
                             .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
 
+                    if (!user.isEnabled()) {
+                        throw new UnauthorizedException("Account is disabled. Cannot refresh tokens.");
+                    }
+
                     refreshTokenService.revokeToken(oldToken);
 
 

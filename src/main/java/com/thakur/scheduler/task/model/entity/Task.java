@@ -21,15 +21,13 @@ import java.util.Set;
 @AllArgsConstructor
 @Document(collection = "tasks")
 @CompoundIndexes({
-        // Covers: findByUserIdAndDeletedAtIsNull AND findByUserIdAndDeletedAtIsNullAndStatus
+
         @CompoundIndex(name = "user_deleted_status_idx", def = "{'userId': 1, 'deletedAt': 1, 'status': 1}"),
 
-        // Covers: findByUserIdAndDeletedAtIsNullAndPriority
+
         @CompoundIndex(name = "user_deleted_priority_idx", def = "{'userId': 1, 'deletedAt': 1, 'priority': 1}"),
 
-        // Covers: existsByUserIdAndTitleAndDeletedAtIsNull (Prevents duplicate title check from slowing down)
-        @CompoundIndex(name = "user_deleted_title_idx", def = "{'userId': 1, 'deletedAt': 1, 'title': 1}")
-
+        @CompoundIndex(name = "user_deleted_title_idx", def = "{'userId': 1, 'deletedAt': 1, 'title': 1}", unique = true)
 })
 public class Task {
     @Id

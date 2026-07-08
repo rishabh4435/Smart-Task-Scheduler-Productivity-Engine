@@ -22,6 +22,7 @@ import java.util.List;
 public class UserService {
     private final UserRepository userRepository;
     private final TaskRepository taskRepository;
+    private final RefreshTokenService refreshTokenService;
 
     @Transactional
     public UserResponseDto updateUserRole(String userId, Role newRole) {
@@ -72,9 +73,14 @@ public class UserService {
 
         user.setEnabled(enabled);
         User saved = userRepository.save(user);
+
+        if (!enabled) {
+            refreshTokenService.revokeAllUserTokens(userId);
+            log.info("Revoked all active sessions for disabled user {}", userId);
+        }
+
         log.info("Successfully {} user {}", enabled ? "enabled" : "disabled", userId);
         return mapToDto(saved);
-
     }
 
     public List<TaskResponseDto> getAllTasks() {

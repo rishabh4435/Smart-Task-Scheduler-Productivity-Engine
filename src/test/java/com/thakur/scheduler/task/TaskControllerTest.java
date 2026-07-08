@@ -30,6 +30,7 @@ import java.time.Instant;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -271,7 +272,7 @@ class TaskControllerTest {
 
     private Task createTask() {
         return Task.builder()
-                .title("testTask")
+                .title("testTask-" + UUID.randomUUID())
                 .description("This is test task")
                 .priority(Priority.LOW)
                 .estimatedHours(6)
